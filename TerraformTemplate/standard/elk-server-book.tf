@@ -21,6 +21,10 @@ resource "aws_instance" "elk-server" {
     
 }
 
+resource "time_sleep" "wait_10_seconds" {
+  create_duration = "10s"
+}
+
 resource "null_resource" "provision-server"{
     
     connection{
@@ -70,12 +74,9 @@ resource "null_resource" "provision-server"{
         destination = "/tmp/generateNginxProperties.sh"
     }
     
-    provisioner "local-exec" {
-      command = "sleep 5"
-    }
-    
     provisioner "remote-exec"{
         inline = [
+                    "sleep 10s"
                     "chmod +x /tmp/elkSetup.sh",
                     "sudo sh /tmp/elkSetup.sh"
         ]

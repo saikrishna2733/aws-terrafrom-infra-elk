@@ -1,13 +1,13 @@
 variable "region" {
-    default = "us-east-1"
+    default = "ap-south-1"
 }
 
 variable "ami-id" {
-    default = "ami-04b9e92b5572fa0d1"
+    default = "ami-04d29c988054c200d"
 }
 
 variable "keyname" {
-    default = "ELKServer"
+    default = "saikrishna"
 }
 
 variable "user" {

@@ -1,3 +1,6 @@
+resource "time_sleep" "wait_30_seconds" {
+  create_duration = "30s"
+}
 resource "aws_instance" "elk-client" {
     # The connection block tells our provisioner how to
     # communicate with the resource (instance)
@@ -53,13 +56,13 @@ resource "null_resource" "provision-client"{
         source = "Scripts/filebeatRegistryClean.sh"
         destination = "/tmp/filebeatRegistryClean.sh"
     }
-    
-    provisioner "local-exec" {
-      command = "sleep 30"
-    }
-    
+    # provisioner "local-exec" {
+    #   command = "timeout 30"
+    # }
+
     provisioner "remote-exec"{
         inline = [
+                    "sleep 10s"
                     "chmod +x /tmp/filebeat.sh",
                     "chmod +x /tmp/filebeatRegistryClean.sh",
                     "sudo sh /tmp/filebeat.sh ${aws_instance.elk-server.private_ip}",
